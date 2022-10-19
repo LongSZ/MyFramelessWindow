@@ -6,8 +6,6 @@ MyFramelessMainWindow::MyFramelessMainWindow(QWidget *parent)
     , ui(new Ui::MyFramelessMainWindow) {
     ui->setupUi(this);
 
-    mDrag = false;
-
     initUI("MyFramelessMainWindow");
 }
 
@@ -123,7 +121,7 @@ void MyFramelessMainWindow::childEvent(QChildEvent *e) {
     QWidget::childEvent(e);
 }
 
-bool MyFramelessMainWindow::nativeEvent(const QByteArray &, void *message, long *result) {
+bool MyFramelessMainWindow::nativeEvent(const QByteArray &eventType, void *message, qintptr *result) {
     MSG *msg = (MSG *)message;
 
     if (msg->message == WM_SETFOCUS) {
@@ -333,25 +331,6 @@ bool MyFramelessMainWindow::focusNextPrevChild(bool next) {
     ::SetFocus(m_ParentNativeWindowHandle);
 
     return true;
-}
-
-void MyFramelessMainWindow::mousePressEvent(QMouseEvent *event) {
-    if (event->button() == Qt::LeftButton) {
-        mDrag = true;
-        mDragPos = event->globalPosition().toPoint() - pos();
-        event->accept();
-    }
-}
-
-void MyFramelessMainWindow::mouseMoveEvent(QMouseEvent *event) {
-    if (mDrag && (event->buttons() & Qt::LeftButton)) {
-        move(event->globalPosition().toPoint() - mDragPos);
-        event->accept();
-    }
-}
-
-void MyFramelessMainWindow::mouseReleaseEvent(QMouseEvent *event) {
-    mDrag = false;
 }
 
 void MyFramelessMainWindow::resetFocus() {

@@ -40,15 +40,11 @@ public:
     HWND getParentWindow();
 
 protected:
-    void childEvent(QChildEvent *e);
-    bool nativeEvent(const QByteArray &, void *message, long *result);
-    bool eventFilter(QObject *o, QEvent *e);
-    void focusInEvent(QFocusEvent *e);
-    bool focusNextPrevChild(bool next);
-
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+    void childEvent(QChildEvent *e) override;
+    bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result) override;
+    bool eventFilter(QObject *o, QEvent *e) override;
+    void focusInEvent(QFocusEvent *e) override;
+    bool focusNextPrevChild(bool next) override;
 
 private slots:
     void on_pushButtonMinimum_clicked();
@@ -71,7 +67,5 @@ private:
     int TOOLBARHEIGHT = 80; //Adjust this as you wish for # of pixels from the top to allow dragging the window
     HWND _prevFocus;
     bool _reenableParent;
-    bool mDrag;
-    QPoint mDragPos;
 };
 #endif // MYFRAMELESSMAINWINDOW_H

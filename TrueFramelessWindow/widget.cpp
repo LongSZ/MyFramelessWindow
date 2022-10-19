@@ -9,7 +9,8 @@ Widget::Widget(QWidget *parent)
 
     //Set a black background for funsies
     QPalette Pal(palette());
-    Pal.setColor(QPalette::Window, Qt::blue);
+    //Pal.setColor(QPalette::Window, Qt::blue);
+    //Pal.setColor(QPalette::Window, Qt::blue);
     setAutoFillBackground(true);
     setPalette(Pal);
 
