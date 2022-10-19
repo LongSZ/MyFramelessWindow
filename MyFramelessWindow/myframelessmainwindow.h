@@ -46,6 +46,10 @@ protected:
     void focusInEvent(QFocusEvent *e);
     bool focusNextPrevChild(bool next);
 
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
+
 private slots:
     void on_pushButtonMinimum_clicked();
 
@@ -67,5 +71,7 @@ private:
     int TOOLBARHEIGHT = 80; //Adjust this as you wish for # of pixels from the top to allow dragging the window
     HWND _prevFocus;
     bool _reenableParent;
+    bool mDrag;
+    QPoint mDragPos;
 };
 #endif // MYFRAMELESSMAINWINDOW_H
