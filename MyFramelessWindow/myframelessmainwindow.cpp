@@ -55,14 +55,18 @@ void MyFramelessMainWindow::initUI(const QString &name) {
     SendMessage(m_ParentNativeWindowHandle, WM_SIZE, 0, 0);
 
     //init window size and pos
-    //QDesktopWidget *desktop = QApplication::desktop();
-    QScreen *screen = window()->screen();
-    QRect availableRc = screen->availableGeometry();
-    int windowXPos, windowYPos, windowWidth, windowHeight;
-    windowWidth = 1200;
-    windowHeight = 800;
-    windowXPos = availableRc.x() + (availableRc.width() - windowWidth) / 2;
-    windowYPos = availableRc.y() + (availableRc.height() - windowHeight) / 2;
+    //init window size and pos
+    //Qt5
+    QDesktopWidget *desktop = QApplication::desktop();
+    QRect availableRc = desktop->availableGeometry();   //获取可用桌面大小
+    //QRect screenRect = desktop->screenGeometry();       //获取设备屏幕大小
+    //Qt6
+    //QScreen *screen = window()->screen();
+    //QRect availableRc = screen->availableGeometry();
+    int windowWidth = 1200;
+    int windowHeight = 800;
+    int windowXPos = availableRc.x() + (availableRc.width() - windowWidth) / 2;
+    int windowYPos = availableRc.y() + (availableRc.height() - windowHeight) / 2;
     this->setGeometry(windowXPos, windowYPos, windowWidth, windowHeight);
 }
 
@@ -121,7 +125,7 @@ void MyFramelessMainWindow::childEvent(QChildEvent *e) {
     QWidget::childEvent(e);
 }
 
-bool MyFramelessMainWindow::nativeEvent(const QByteArray &eventType, void *message, qintptr *result) {
+bool MyFramelessMainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result) {
     MSG *msg = (MSG *)message;
 
     if (msg->message == WM_SETFOCUS) {

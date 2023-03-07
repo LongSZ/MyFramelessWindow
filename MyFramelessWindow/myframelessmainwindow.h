@@ -11,6 +11,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QDesktopWidget>
 
 #include "winnativewindow.h"
 
@@ -41,7 +42,8 @@ public:
 
 protected:
     void childEvent(QChildEvent *e) override;
-    bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result) override;
+    //bool nativeEvent(const QByteArray &eventType, void *message, qintptr *result) override;
+    bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
     bool eventFilter(QObject *o, QEvent *e) override;
     void focusInEvent(QFocusEvent *e) override;
     bool focusNextPrevChild(bool next) override;
